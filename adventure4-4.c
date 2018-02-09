@@ -52,8 +52,14 @@ int main(){
         char ch;
         int linecount = 0;
         FILE *f = fopen("savefiles.txt", "r");
-        while ((ch=getc(f)) != EOF) {
-		   if (ch == '\n') { ++linecount; }
+        if(f==0)
+        {
+            FILE *f = fopen("savefiles.txt", "ab+");
+        }
+        else{
+            while ((ch=getc(f)) != EOF) {
+		       if (ch == '\n') { ++linecount; }
+            }
         }
         fclose(f);
 
@@ -68,8 +74,12 @@ int main(){
 		break;
 	case 2:
         printf("\n");
+        FILE* file = fopen("savefiles.txt", "r");         
+        if(file==0){
+            printf("Save files not found.\n\n");
+            break;
+        }
         printf("Please select a user:\n");
-        FILE* file = fopen("savefiles.txt", "r"); 
         int filenumber, level;                
         char name[100];
         charData *first = NULL; charData *last = NULL;
